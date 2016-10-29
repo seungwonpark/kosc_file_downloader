@@ -26,8 +26,8 @@ level = [
 ]
 
 
-start_date = date(2016,01,01)
-end_date = date(2016,01,02)
+start_date = date(2011,01,01)
+end_date = date(2016,12,31)
 delta = end_date - start_date
 f = open('list.txt', 'w')
 
