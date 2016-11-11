@@ -6,27 +6,28 @@ import sys
 import time
 import threading
 
-urls = [
-"http://222.236.46.45/nfsdb/COMS/GOCI/1.0/2011/04/01/L1B/COMS_GOCI_L1B_GA_20110401001641.he5.zip",
-"http://222.236.46.45/nfsdb/COMS/GOCI/1.0/2011/04/01/L1B/COMS_GOCI_L1B_GA_20110401011641.he5.zip",
-"http://222.236.46.45/nfsdb/COMS/GOCI/1.0/2011/04/01/L1B/COMS_GOCI_L1B_GA_20110401021641.he5.zip",
-"http://222.236.46.45/nfsdb/COMS/GOCI/1.0/2011/04/01/L1B/COMS_GOCI_L1B_GA_20110401031641.he5.zip",
-"http://222.236.46.45/nfsdb/COMS/GOCI/1.0/2011/04/01/L1B/COMS_GOCI_L1B_GA_20110401041641.he5.zip",
-"http://222.236.46.45/nfsdb/COMS/GOCI/1.0/2011/04/01/L1B/COMS_GOCI_L1B_GA_20110401051641.he5.zip",
-"http://222.236.46.45/nfsdb/COMS/GOCI/1.0/2011/04/01/L1B/COMS_GOCI_L1B_GA_20110401061641.he5.zip",
-"http://222.236.46.45/nfsdb/COMS/GOCI/1.0/2011/04/01/L1B/COMS_GOCI_L1B_GA_20110401071641.he5.zip",
-]
+read_file = open('wanted.txt','r')
+raw_lists = read_file.read()
+urls = []
 
+read_splited = raw_lists.split('<')
+#print(read_splited)
+for i in range(1,len(read_splited)):
+    urls.append("http://222.236.46.45" + read_splited[i].split('>')[0])
+
+print (urls)
 url = urls[1]
 
 def downloadFile(url, saveTo=None):
     file_name = url.split('/')[-1]
     if not saveTo:
-        saveTo = 'test/'
+        saveTo = 'Downloads/'
     try:
         u = urllib2.urlopen(url)
-    except urllib2.URLError , er:
-        print("%s" % er.reason)
+    except urllib2.URLError:
+        pass
+#    except urllib2.URLError , er:
+#        print("%s" % er.reason)
     else:
 
         f = open(os.path.join(saveTo, file_name), 'wb')
